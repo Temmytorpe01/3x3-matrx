@@ -1,0 +1,374 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/SASS/style.css">
+    <title>Matrix</title>
+</head>
+<body>
+        <div class="container" >
+            <div id="det">
+                <h1>3x3 MATRIX IN JAVASCRIPT</h1>
+                <div class="row input-row">
+                    <input type="number" name="number" id="a11">
+                    <input type="number" name="number" id="a12">
+                    <input type="number" name="number" id="a13">
+                </div>
+                <div class="row input-row">
+                    <input type="number" name="number" id="a21">
+                    <input type="number" name="number" id="a22">
+                    <input type="number" name="number" id="a23">
+                </div>
+                <div class="row input-row">
+                    <input type="number" name="number" id="a31">
+                    <input type="number" name="number" id="a32">
+                    <input type="number" name="number" id="a33">
+                </div>
+                <div class="row mt-2 button-style">
+                    <div class="col-1">
+                        <button type="button" class="btn btn-success" onclick="det()">Determinant</button>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="btn btn-success" onclick="inv()">Inverse</button>
+                    </div>
+                    <!-- <div class="col-1">
+                            <button type="button" class="btn btn-success" onclick="fetch()">Additions</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-primary" onclick="fetch()">Multiplications</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-danger" onclick="remove()">Substractions</button>
+                        </div>
+                        <div class="col-1">
+                            <button type="button" class="btn btn-info" onclick="remove()">Inverse</button>
+                    </div> -->
+                </div>
+                <div class="result"></div>
+            </div>
+            <div class="clear-result">
+                <button type="button" class="btn btn-success addsub" id="add">Perform Additions/Substractions</button>
+            </div>
+            <div style="display: none;" id="addsub">
+                    <h1>3x3 MATRIX IN JAVASCRIPT</h1>
+                    <div class="A">
+                        <h1>A</h1>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="b11">
+                            <input type="number" name="number" id="b12">
+                            <input type="number" name="number" id="b13">
+                        </div>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="b21">
+                            <input type="number" name="number" id="b22">
+                            <input type="number" name="number" id="b23">
+                        </div>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="b31">
+                            <input type="number" name="number" id="b32">
+                            <input type="number" name="number" id="b33">
+                        </div> 
+                    </div>
+                    <hr>
+                    <b class="demo"></b>
+                    <hr>
+                    <div class="B">
+                        <h1>B</h1>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="c11">
+                            <input type="number" name="number" id="c12">
+                            <input type="number" name="number" id="c13">
+                        </div>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="c21">
+                            <input type="number" name="number" id="c22">
+                            <input type="number" name="number" id="c23">
+                        </div>
+                        <div class="row input-row">
+                            <input type="number" name="number" id="c31">
+                            <input type="number" name="number" id="c32">
+                            <input type="number" name="number" id="c33">
+                        </div>
+                    </div>
+            <div class="row mt-2 button-style">
+                
+                <div class="col-1">
+                    <button type="button" class="btn btn-success" onclick="add()">Additions</button>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary" onclick="multi()">Multiplications</button>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-danger" onclick="subt()">Substractions</button>
+                </div>
+                <!-- <div class="col-1">
+                    <button type="button" class="btn btn-info" onclick="remove()">Inverse</button>
+                </div> -->
+              </div>
+              <div class="output"></div>
+              </div>
+            </div>
+
+        <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+        <script>
+            function det() {
+                const a11 = document.getElementById("a11").value;
+                const a12 = document.getElementById("a12").value;
+                const a13 = document.getElementById("a13").value;
+                const a21 = document.getElementById("a21").value;
+                const a22 = document.getElementById("a22").value;
+                const a23 = document.getElementById("a23").value;
+                const a31 = document.getElementById("a31").value;
+                const a32 = document.getElementById("a32").value;
+                const a33 = document.getElementById("a33").value;
+                let result = document.querySelector('.result')
+
+                const first_compute = a11*((a22*a33)- (a32*a23))
+                const second_compute = a12*((a21*a33) - (a31*a23))
+                const third_compute = a13*((a21*a32) - (a31*a22))
+
+                const determinant = (first_compute) - (second_compute) + (third_compute)
+                result.innerHTML = `<p>Determinant : - ${determinant}</p>`
+
+                // console.log(first_compute)
+                // console.log(second_compute)
+                // console.log(third_compute)
+                // console.log(determinant)
+                // result.innerHTML = `<p>Determinant : - ${determinant}</p>`
+                // console.log(result)
+
+                // console.log(a21)
+                // console.log(a22)
+                // console.log(a23)
+                // console.log(a31)
+                // console.log(a32)
+                // console.log(a33)
+
+            }
+
+            function inv() {
+                const a11 = document.getElementById("a11").value;
+                const a12 = document.getElementById("a12").value;
+                const a13 = document.getElementById("a13").value;
+                const a21 = document.getElementById("a21").value;
+                const a22 = document.getElementById("a22").value;
+                const a23 = document.getElementById("a23").value;
+                const a31 = document.getElementById("a31").value;
+                const a32 = document.getElementById("a32").value;
+                const a33 = document.getElementById("a33").value;
+                let result = document.querySelector('.result')
+
+                const first_compute = a11*((a22*a33)- (a32*a23))
+                const second_compute = a12*((a21*a33) - (a31*a23))
+                const third_compute = a13*((a21*a32) - (a31*a22))
+
+                const determinant = (first_compute) - (second_compute) + (third_compute)
+
+                let  new_a11 = (a22*a33)- (a32*a23)
+                let  new_a12 = -1 * ((a21*a33) - (a31*a23))
+                let  new_a13 = (a21*a32) - (a31*a22)
+
+                let  new_a21 = -1* ((a12*a33)- (a32*a13))
+                let  new_a22 = (a11*a33) - (a31*a13)
+                let  new_a23 = -1 * ((a11*a32) - (a31*a12))
+
+                let  new_a31 = (a12*a23) - (a13*a22)
+                let  new_a32 = -1 * ((a11*a23) - (a13*a21))
+                let  new_a33 = (a11*a22) - (a12*a21)
+                result.innerHTML = `<p>New : -<br>
+                    <b class="left">1/${determinant}</b>
+                    <b class="right">${new_a11}  ${new_a21} ${new_a31}</b><br>
+                    <b class="right">${new_a12}  ${new_a22} ${new_a32}</b><br>
+                    <b class="right">${new_a13}  ${new_a23} ${new_a33}</b>
+                    </p>`
+                // 1/${determinant}
+
+            }
+            // function addsub(){
+            //     const det = document.getElementById('det')
+            //     det.hide()
+            //     // const addsub = document.getElementById('addsub')
+            //     // addsub.style.display = 1
+            // }
+            $(document).ready(function() {
+                    $('.addsub').on('click', function() {
+                    $('#det').hide()
+                    $('#addsub').show()
+                    $('#add').hide()
+                })
+            })
+
+            function add() {
+                const b11 = document.getElementById("b11").value;
+                const b12 = document.getElementById("b12").value;
+                const b13 = document.getElementById("b13").value;
+                const b21 = document.getElementById("b21").value;
+                const b22 = document.getElementById("b22").value;
+                const b23 = document.getElementById("b23").value;
+                const b31 = document.getElementById("b31").value;
+                const b32 = document.getElementById("b32").value;
+                const b33 = document.getElementById("b33").value;
+
+                const c11 = document.getElementById("c11").value;
+                const c12 = document.getElementById("c12").value;
+                const c13 = document.getElementById("c13").value;
+                const c21 = document.getElementById("c21").value;
+                const c22 = document.getElementById("c22").value;
+                const c23 = document.getElementById("c23").value;
+                const c31 = document.getElementById("c31").value;
+                const c32 = document.getElementById("c32").value;
+                const c33 = document.getElementById("c33").value;
+                let output = document.querySelector('.output')
+                let demo = document.querySelector('.demo')
+
+
+                let  new_bc11 = +b11 + +c11
+                let  new_bc12 = +b12 + +c12
+                let  new_bc13 = +b13 + +c13
+
+                let  new_bc21 = +b21 + +c21
+                let  new_bc22 = +b22 + +c22
+                let  new_bc23 = +b23 + +c23
+
+                let  new_bc31 = +b31 + +c31
+                let  new_bc32 = +b32 + +c32
+                let  new_bc33 = +b33 + +c33
+                demo.innerHTML = `<h1>+</h1>`
+                output.innerHTML = `<p> ADDITION: -<br>
+                    <b>${new_bc11}  ${new_bc12}  ${new_bc13}</b><br>
+                    <b>${new_bc21}  ${new_bc22}  ${new_bc23}</b><br>
+                    <b>${new_bc31}  ${new_bc32}  ${new_bc33}</b>
+                    </p>`
+
+                // console.log(new_bc11)
+                // console.log(new_bc12)
+                // console.log(new_bc13)
+                // console.log(new_bc21)
+                // console.log(new_bc22)
+                // console.log(new_bc23)
+                // console.log(new_bc31)
+                // console.log(new_bc32)
+                // console.log(new_bc33)
+
+                
+                // console.log(b11)
+                // console.log(b12)
+                // console.log(b13)
+                // console.log(b21)
+                // console.log(b22)
+                // console.log(b23)
+                // console.log(b31)
+                // console.log(b32)
+                // console.log(b33)
+
+                // console.log(c11)
+                // console.log(c12)
+                // console.log(c13)
+                // console.log(c21)
+                // console.log(c22)
+                // console.log(c23)
+                // console.log(c31)
+                // console.log(c32)
+                // console.log(c33)
+
+                
+                
+            }
+
+            function multi() {
+                const b11 = document.getElementById("b11").value;
+                const b12 = document.getElementById("b12").value;
+                const b13 = document.getElementById("b13").value;
+                const b21 = document.getElementById("b21").value;
+                const b22 = document.getElementById("b22").value;
+                const b23 = document.getElementById("b23").value;
+                const b31 = document.getElementById("b31").value;
+                const b32 = document.getElementById("b32").value;
+                const b33 = document.getElementById("b33").value;
+
+                const c11 = document.getElementById("c11").value;
+                const c12 = document.getElementById("c12").value;
+                const c13 = document.getElementById("c13").value;
+                const c21 = document.getElementById("c21").value;
+                const c22 = document.getElementById("c22").value;
+                const c23 = document.getElementById("c23").value;
+                const c31 = document.getElementById("c31").value;
+                const c32 = document.getElementById("c32").value;
+                const c33 = document.getElementById("c33").value;
+                let output = document.querySelector('.output')
+                let demo = document.querySelector('.demo')
+
+
+                let  new_bc11 = b11 * c11
+                let  new_bc12 = b12 * c12
+                let  new_bc13 = b13 * c13
+
+                let  new_bc21 = b21 * c21
+                let  new_bc22 = b22 * c22
+                let  new_bc23 = b23 * c23
+
+                let  new_bc31 = b31 * c31
+                let  new_bc32 = b32 * c32
+                let  new_bc33 = b33 * c33
+                demo.innerHTML = `<h1>*</h1>`
+                output.innerHTML = `<p> MULTIPLICATION: -<br>
+                    <b>${new_bc11}  ${new_bc12}  ${new_bc13}</b><br>
+                    <b>${new_bc21}  ${new_bc22}  ${new_bc23}</b><br>
+                    <b>${new_bc31}  ${new_bc32}  ${new_bc33}</b>
+                    </p>`
+
+            }
+
+            function subt() {
+                const b11 = document.getElementById("b11").value;
+                const b12 = document.getElementById("b12").value;
+                const b13 = document.getElementById("b13").value;
+                const b21 = document.getElementById("b21").value;
+                const b22 = document.getElementById("b22").value;
+                const b23 = document.getElementById("b23").value;
+                const b31 = document.getElementById("b31").value;
+                const b32 = document.getElementById("b32").value;
+                const b33 = document.getElementById("b33").value;
+
+                const c11 = document.getElementById("c11").value;
+                const c12 = document.getElementById("c12").value;
+                const c13 = document.getElementById("c13").value;
+                const c21 = document.getElementById("c21").value;
+                const c22 = document.getElementById("c22").value;
+                const c23 = document.getElementById("c23").value;
+                const c31 = document.getElementById("c31").value;
+                const c32 = document.getElementById("c32").value;
+                const c33 = document.getElementById("c33").value;
+                let output = document.querySelector('.output')
+                let demo = document.querySelector('.demo')
+
+
+                let  new_bc11 = b11 - c11
+                let  new_bc12 = b12 - c12
+                let  new_bc13 = b13 - c13
+
+                let  new_bc21 = b21 - c21
+                let  new_bc22 = b22 - c22
+                let  new_bc23 = b23 - c23
+
+                let  new_bc31 = b31 - c31
+                let  new_bc32 = b32 - c32
+                let  new_bc33 = b33 - c33
+                demo.innerHTML = `<h1>-</h1>`
+                output.innerHTML = `<p> SUBSTRACTION: -<br>
+                    <b>${new_bc11}  ${new_bc12}  ${new_bc13}</b><br>
+                    <b>${new_bc21}  ${new_bc22}  ${new_bc23}</b><br>
+                    <b>${new_bc31}  ${new_bc32}  ${new_bc33}</b>
+                    </p>`
+
+            }
+
+        </script>
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+</body>
+</html>
